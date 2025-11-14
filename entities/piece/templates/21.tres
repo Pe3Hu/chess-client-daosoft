@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PieceTemplateResource" load_steps=2 format=3 uid="uid://dk78665bv0sh3"]
+
+[ext_resource type="Script" uid="uid://b55cr24ikwmhf" path="res://entities/piece/templates/piece_template_resource.gd" id="1_6slit"]
+
+[resource]
+script = ExtResource("1_6slit")
+type = 5
+color = 16
+metadata/_custom_type_script = "uid://b55cr24ikwmhf"

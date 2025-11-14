@@ -1,0 +1,384 @@
+[gd_scene load_steps=8 format=3 uid="uid://bj5dpq71t7j4v"]
+
+[ext_resource type="Script" uid="uid://d3iundk5xnug4" path="res://entities/board/board.gd" id="1_k7u3y"]
+[ext_resource type="PackedScene" uid="uid://cir12cpm1kaw2" path="res://entities/board/tile/tile.tscn" id="2_snp00"]
+[ext_resource type="PackedScene" uid="uid://sfu5ej4glwwj" path="res://entities/piece/piece.tscn" id="3_s8wxl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k7u3y"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_snp00"]
+bg_color = Color(0.2051174, 0.20511746, 0.20511732, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s8wxl"]
+bg_color = Color(0.2231029, 0.2231029, 0.22310278, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k7u3y"]
+
+[node name="Board" type="PanelContainer"]
+custom_minimum_size = Vector2(288, 288)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -128.0
+offset_right = 128.0
+offset_bottom = 128.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 1
+script = ExtResource("1_k7u3y")
+tile_scene = ExtResource("2_snp00")
+piece_scene = ExtResource("3_s8wxl")
+
+[node name="Axis" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Axis"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="WhiteAxisDigits" type="VBoxContainer" parent="Axis/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_constants/separation = 0
+
+[node name="DigitLabel9" type="Label" parent="Axis/HBoxContainer/WhiteAxisDigits"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "9"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label8" type="Label" parent="Axis/HBoxContainer/WhiteAxisDigits"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "8"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label7" type="Label" parent="Axis/HBoxContainer/WhiteAxisDigits"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "7"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label6" type="Label" parent="Axis/HBoxContainer/WhiteAxisDigits"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "6"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label5" type="Label" parent="Axis/HBoxContainer/WhiteAxisDigits"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label4" type="Label" parent="Axis/HBoxContainer/WhiteAxisDigits"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "4"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="Axis/HBoxContainer/WhiteAxisDigits"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="Axis/HBoxContainer/WhiteAxisDigits"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label1" type="Label" parent="Axis/HBoxContainer/WhiteAxisDigits"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BlackAxisDigits" type="VBoxContainer" parent="Axis/HBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_constants/separation = 0
+
+[node name="Label1" type="Label" parent="Axis/HBoxContainer/BlackAxisDigits"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="Axis/HBoxContainer/BlackAxisDigits"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="Axis/HBoxContainer/BlackAxisDigits"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label4" type="Label" parent="Axis/HBoxContainer/BlackAxisDigits"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "4"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label5" type="Label" parent="Axis/HBoxContainer/BlackAxisDigits"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label6" type="Label" parent="Axis/HBoxContainer/BlackAxisDigits"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "6"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label7" type="Label" parent="Axis/HBoxContainer/BlackAxisDigits"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "7"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label8" type="Label" parent="Axis/HBoxContainer/BlackAxisDigits"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "8"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DigitLabel9" type="Label" parent="Axis/HBoxContainer/BlackAxisDigits"]
+visible = false
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "9"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BoardContainer" type="MarginContainer" parent="Axis/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="Board" type="Node2D" parent="Axis/HBoxContainer/BoardContainer"]
+unique_name_in_owner = true
+
+[node name="BoardMapLayer" type="TileMapLayer" parent="Axis/HBoxContainer/BoardContainer/Board"]
+unique_name_in_owner = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Axis/HBoxContainer/BoardContainer/Board/BoardMapLayer"]
+
+[node name="Tiles" type="Node2D" parent="Axis/HBoxContainer/BoardContainer/Board/BoardMapLayer"]
+unique_name_in_owner = true
+
+[node name="Pieces" type="Node2D" parent="Axis/HBoxContainer/BoardContainer/Board/BoardMapLayer"]
+unique_name_in_owner = true
+
+[node name="HellHorsePassAsk" type="PanelContainer" parent="Axis/HBoxContainer/BoardContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_k7u3y")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Axis/HBoxContainer/BoardContainer/HellHorsePassAsk"]
+layout_mode = 2
+alignment = 1
+
+[node name="HellHorseLabel" type="Label" parent="Axis/HBoxContainer/BoardContainer/HellHorsePassAsk/VBoxContainer"]
+layout_mode = 2
+text = "pass second move?"
+
+[node name="Buttons" type="HBoxContainer" parent="Axis/HBoxContainer/BoardContainer/HellHorsePassAsk/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="HellHorseYesButton" type="Button" parent="Axis/HBoxContainer/BoardContainer/HellHorsePassAsk/VBoxContainer/Buttons"]
+layout_mode = 2
+text = "yes"
+
+[node name="HellHorseNoButton" type="Button" parent="Axis/HBoxContainer/BoardContainer/HellHorsePassAsk/VBoxContainer/Buttons"]
+layout_mode = 2
+text = "no"
+
+[node name="FoxPanel" type="PanelContainer" parent="Axis/HBoxContainer/BoardContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_snp00")
+
+[node name="FoxLabel" type="Label" parent="Axis/HBoxContainer/BoardContainer/FoxPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "select 2 pieces for swap"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CheckmatePanel" type="PanelContainer" parent="Axis/HBoxContainer/BoardContainer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_s8wxl")
+
+[node name="CheckmateLabel" type="Label" parent="Axis/HBoxContainer/BoardContainer/CheckmatePanel"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "checkmate!"
+
+[node name="HBoxBlank" type="HBoxContainer" parent="Axis"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="Axis/HBoxBlank"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_k7u3y")
+
+[node name="AxisLetters" type="HBoxContainer" parent="Axis/HBoxBlank"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_constants/separation = 0
+
+[node name="Label1" type="Label" parent="Axis/HBoxBlank/AxisLetters"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "A	"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="Axis/HBoxBlank/AxisLetters"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "B"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="Axis/HBoxBlank/AxisLetters"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "C"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label4" type="Label" parent="Axis/HBoxBlank/AxisLetters"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "D"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label5" type="Label" parent="Axis/HBoxBlank/AxisLetters"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "E"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label6" type="Label" parent="Axis/HBoxBlank/AxisLetters"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "F"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label7" type="Label" parent="Axis/HBoxBlank/AxisLetters"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "G"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label8" type="Label" parent="Axis/HBoxBlank/AxisLetters"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "H"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LetterLabel9" type="Label" parent="Axis/HBoxBlank/AxisLetters"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "I"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="pressed" from="Axis/HBoxContainer/BoardContainer/HellHorsePassAsk/VBoxContainer/Buttons/HellHorseYesButton" to="." method="_on_hell_horse_yes_button_pressed"]
+[connection signal="pressed" from="Axis/HBoxContainer/BoardContainer/HellHorsePassAsk/VBoxContainer/Buttons/HellHorseNoButton" to="." method="_on_hell_horse_no_button_pressed"]

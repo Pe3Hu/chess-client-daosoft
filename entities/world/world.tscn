@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://dpq0g6jrlkuea"]
+
+[ext_resource type="Script" uid="uid://b12ycqhctu6gd" path="res://entities/world/world.gd" id="1_sbgiu"]
+[ext_resource type="PackedScene" uid="uid://dp0wkdcq68046" path="res://entities/game/game.tscn" id="2_tytc4"]
+[ext_resource type="PackedScene" uid="uid://dscvkdwaqhv1j" path="res://entities/world/cursor/custom_cursor.tscn" id="3_gi14s"]
+
+[node name="World" type="Node"]
+script = ExtResource("1_sbgiu")
+
+[node name="Game" parent="." node_paths=PackedStringArray("world", "cursor") instance=ExtResource("2_tytc4")]
+unique_name_in_owner = true
+offset_left = -360.0
+offset_right = 360.0
+world = NodePath("..")
+cursor = NodePath("../CanvasLayer/CustomCursor")
+
+[node name="Camera2D" type="Camera2D" parent="Game"]
+position = Vector2(365, 140)
+zoom = Vector2(2, 2)
+
+[node name="FPS" type="Label" parent="."]
+visible = false
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 128
+
+[node name="CustomCursor" parent="CanvasLayer" instance=ExtResource("3_gi14s")]

@@ -1,0 +1,160 @@
+[gd_scene load_steps=3 format=3 uid="uid://00fjhlk16sb4"]
+
+[ext_resource type="Script" uid="uid://qghfl83abe0f" path="res://entities/menu/handbook/handbook.gd" id="1_d5ttc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d5ttc"]
+
+[node name="Handbook" type="PanelContainer"]
+offset_right = 66.0
+offset_bottom = 16.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxEmpty_d5ttc")
+script = ExtResource("1_d5ttc")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "tile types:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CurrentHBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/CurrentHBoxContainer"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(0.38, 0.38, 0.38, 1)
+
+[node name="Label" type="Label" parent="VBoxContainer/CurrentHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "current"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LegalCurrentHBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/LegalCurrentHBoxContainer"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(0.34749997, 1, 0.13, 1)
+
+[node name="Label" type="Label" parent="VBoxContainer/LegalCurrentHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "legal"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PinHBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/PinHBoxContainer"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(1, 0.14999998, 0.9291669, 1)
+
+[node name="Label" type="Label" parent="VBoxContainer/PinHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "pin"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CaptureHBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/CaptureHBoxContainer"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(0.5580001, 0.22000003, 1, 1)
+
+[node name="Label" type="Label" parent="VBoxContainer/CaptureHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "capture"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CheckHBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/CheckHBoxContainer"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(0.19, 0.5139999, 1, 1)
+
+[node name="Label" type="Label" parent="VBoxContainer/CheckHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "check"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AltarHBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/AltarHBoxContainer"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="VBoxContainer/AltarHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "altar"
+horizontal_alignment = 1
+vertical_alignment = 1

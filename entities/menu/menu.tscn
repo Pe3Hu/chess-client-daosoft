@@ -1,0 +1,144 @@
+[gd_scene load_steps=13 format=3 uid="uid://btnc85ssqewc7"]
+
+[ext_resource type="Script" uid="uid://b3oosn6dwhcr3" path="res://entities/menu/menu.gd" id="1_ab5ca"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_28b7d"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ab5ca"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vtc7f"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kk54r"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kskt3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_aud0f"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yttcm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tjnt2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3fnu5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_puy48"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_425a5"]
+
+[node name="Menu" type="PanelContainer"]
+offset_right = 176.0
+offset_bottom = 204.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_28b7d")
+script = ExtResource("1_ab5ca")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+alignment = 1
+
+[node name="Mods" type="VBoxContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 1
+
+[node name="ModLabel" type="Label" parent="VBoxContainer/Mods"]
+layout_mode = 2
+text = "select game mods:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ClassicCheckButton" type="CheckButton" parent="VBoxContainer/Mods"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ab5ca")
+disabled = true
+button_pressed = true
+keep_pressed_outside = true
+text = "classic"
+
+[node name="VoidCheckButton" type="CheckButton" parent="VBoxContainer/Mods"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_vtc7f")
+text = "void"
+
+[node name="FoxCheckButton" type="CheckButton" parent="VBoxContainer/Mods"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_kk54r")
+text = "fox"
+
+[node name="GambitCheckButton" type="CheckButton" parent="VBoxContainer/Mods"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_kskt3")
+text = "gambit"
+
+[node name="HellHorseCheckButton" type="CheckButton" parent="VBoxContainer/Mods"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_aud0f")
+text = "hell horse
+"
+
+[node name="SpyCheckButton" type="CheckButton" parent="VBoxContainer/Mods"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_yttcm")
+text = "spy
+"
+
+[node name="OptionButtons" type="VBoxContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 1
+
+[node name="OptionsLabel" type="Label" parent="VBoxContainer/OptionButtons"]
+layout_mode = 2
+text = "select game options:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AutoWhiteCheckButton" type="CheckButton" parent="VBoxContainer/OptionButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_tjnt2")
+text = "random white moves"
+
+[node name="AutoBlackCheckButton" type="CheckButton" parent="VBoxContainer/OptionButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_3fnu5")
+text = "random black moves"
+
+[node name="StartGameButton" type="Button" parent="VBoxContainer/OptionButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/focus = SubResource("StyleBoxEmpty_puy48")
+text = "start new game"
+
+[node name="SurrenderGameButton" type="Button" parent="VBoxContainer/OptionButtons"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/focus = SubResource("StyleBoxEmpty_425a5")
+text = "surrender"
+
+[node name="FoxLabel" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = ">>>select 2 piece for swap<<<"
+
+[connection signal="pressed" from="VBoxContainer/Mods/ClassicCheckButton" to="." method="_on_classic_check_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Mods/VoidCheckButton" to="." method="_on_void_check_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Mods/FoxCheckButton" to="." method="_on_fox_check_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Mods/GambitCheckButton" to="." method="_on_gambit_check_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Mods/HellHorseCheckButton" to="." method="_on_hellhorse_check_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Mods/SpyCheckButton" to="." method="_on_spy_check_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/OptionButtons/AutoWhiteCheckButton" to="." method="_on_auto_white_check_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/OptionButtons/AutoBlackCheckButton" to="." method="_on_auto_black_check_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/OptionButtons/StartGameButton" to="." method="_on_start_game_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/OptionButtons/SurrenderGameButton" to="." method="_on_surrender_game_button_pressed"]

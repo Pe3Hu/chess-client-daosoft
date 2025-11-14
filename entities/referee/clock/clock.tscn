@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=3 uid="uid://c6cyqdb6nbvbn"]
+
+[ext_resource type="Script" uid="uid://cpoye1tj8g0lw" path="res://entities/referee/clock/clock.gd" id="1_nuuhd"]
+[ext_resource type="Texture2D" uid="uid://cbgo4iwl012ns" path="res://entities/referee/clock/images/sacrifice.png" id="2_yn72y"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nuuhd"]
+
+[node name="Clock" type="PanelContainer"]
+theme_override_styles/panel = SubResource("StyleBoxEmpty_nuuhd")
+script = ExtResource("1_nuuhd")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+
+[node name="TimeLabel" type="Label" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "5:00"
+
+[node name="Sacrifice" type="HBoxContainer" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 1
+
+[node name="SacrificeTextureRect" type="TextureRect" parent="HBoxContainer/Sacrifice"]
+layout_mode = 2
+texture = ExtResource("2_yn72y")
+
+[node name="SacrificeLabel" type="Label" parent="HBoxContainer/Sacrifice"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TickTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+
+[connection signal="timeout" from="TickTimer" to="." method="_on_tick_timer_timeout"]

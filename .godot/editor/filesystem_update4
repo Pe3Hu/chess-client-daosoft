@@ -1,0 +1,7 @@
+res://entities/menu/menu.tscn
+res://entities/world/world.gd
+res://entities/game/game.gd
+res://entities/world/world.tscn
+res://entities/game/game.tscn
+res://entities/board/tile/tile.gd
+res://entities/board/board.gd

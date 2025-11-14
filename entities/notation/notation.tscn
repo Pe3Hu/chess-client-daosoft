@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://crjit13a74tgg"]
+
+[ext_resource type="Script" uid="uid://wheuls2exi4p" path="res://entities/notation/notation.gd" id="1_wvyi8"]
+[ext_resource type="PackedScene" uid="uid://bg8sh74o4pmry" path="res://entities/notation/move/move.tscn" id="2_bc6yl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6vppt"]
+bg_color = Color(0.7413847, 0.7413847, 0.7413844, 1)
+
+[node name="Notation" type="PanelContainer"]
+custom_minimum_size = Vector2(100, 288)
+theme_override_styles/panel = SubResource("StyleBoxFlat_6vppt")
+script = ExtResource("1_wvyi8")
+move_scene = ExtResource("2_bc6yl")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 2
+
+[node name="Moves" type="VBoxContainer" parent="RichTextLabel"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 288.0
+alignment = 1

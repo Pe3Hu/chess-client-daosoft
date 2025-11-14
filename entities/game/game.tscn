@@ -1,0 +1,66 @@
+[gd_scene load_steps=7 format=3 uid="uid://dp0wkdcq68046"]
+
+[ext_resource type="PackedScene" uid="uid://bj5dpq71t7j4v" path="res://entities/board/board.tscn" id="1_j054j"]
+[ext_resource type="Script" uid="uid://pfaceqdmhe5d" path="res://entities/game/game.gd" id="1_vjvwb"]
+[ext_resource type="PackedScene" uid="uid://dciyh0oe46td0" path="res://entities/referee/referee.tscn" id="2_vjvwb"]
+[ext_resource type="PackedScene" uid="uid://btnc85ssqewc7" path="res://entities/menu/menu.tscn" id="3_bbd0t"]
+[ext_resource type="PackedScene" uid="uid://crjit13a74tgg" path="res://entities/notation/notation.tscn" id="3_vbwj1"]
+[ext_resource type="PackedScene" uid="uid://00fjhlk16sb4" path="res://entities/menu/handbook/handbook.tscn" id="4_bbd0t"]
+
+[node name="Game" type="PanelContainer"]
+custom_minimum_size = Vector2(720, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -444.5
+offset_top = -144.0
+offset_right = 275.5
+offset_bottom = 144.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 1
+script = ExtResource("1_vjvwb")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Menu" parent="HBoxContainer/HBoxContainer" node_paths=PackedStringArray("game") instance=ExtResource("3_bbd0t")]
+unique_name_in_owner = true
+layout_mode = 2
+game = NodePath("../../..")
+
+[node name="Handbook" parent="HBoxContainer/HBoxContainer" node_paths=PackedStringArray("game") instance=ExtResource("4_bbd0t")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+game = NodePath("../../..")
+
+[node name="Board" parent="HBoxContainer/HBoxContainer" node_paths=PackedStringArray("game") instance=ExtResource("1_j054j")]
+unique_name_in_owner = true
+layout_mode = 2
+game = NodePath("../../..")
+
+[node name="Referee" parent="HBoxContainer/HBoxContainer" node_paths=PackedStringArray("game") instance=ExtResource("2_vjvwb")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+game = NodePath("../../..")
+
+[node name="Notation" parent="HBoxContainer" node_paths=PackedStringArray("game") instance=ExtResource("3_vbwj1")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+game = NodePath("../..")

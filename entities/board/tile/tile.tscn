@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://cir12cpm1kaw2"]
+
+[ext_resource type="Texture2D" uid="uid://tyky1pupbf2e" path="res://entities/board/tile/images/hues.png" id="1_8lry0"]
+[ext_resource type="Script" uid="uid://co1tmb3a5vshm" path="res://entities/board/tile/tile.gd" id="1_sdkdp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8lry0"]
+size = Vector2(32, 32)
+
+[node name="Tile" type="Sprite2D"]
+texture = ExtResource("1_8lry0")
+hframes = 2
+script = ExtResource("1_sdkdp")
+
+[node name="IndexLabel" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -36.0
+offset_top = -24.0
+offset_right = 4.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_8lry0")
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
