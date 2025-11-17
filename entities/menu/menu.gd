@@ -20,6 +20,15 @@ extends PanelContainer
 		active_button = value_
 		active_button.disabled = true
 
+@onready var mod_buttons = [
+	classic_button,
+	hellhorse_button,
+	void_button,
+	fox_button,
+	spy_button,
+	gambit_button
+]
+
 @onready var option_buttons: VBoxContainer = %OptionButtons
 @onready var auto_white_button: CheckButton = %AutoWhiteCheckButton
 @onready var auto_black_button: CheckButton = %AutoBlackCheckButton
@@ -29,54 +38,45 @@ extends PanelContainer
 
 
 func _ready() -> void:
-	#FrameworkSettings.active_mode = FrameworkSettings.active_mode
-
-	match FrameworkSettings.active_mode:
-		FrameworkSettings.ModeType.CLASSIC:
-			active_button = classic_button
-		FrameworkSettings.ModeType.VOID:
-			active_button = void_button
-		FrameworkSettings.ModeType.GAMBIT:
-			active_button = gambit_button
-		FrameworkSettings.ModeType.FOX:
-			active_button = fox_button
-		FrameworkSettings.ModeType.HELLHORSE:
-			active_button = hellhorse_button
-		FrameworkSettings.ModeType.SPY:
-			active_button = spy_button
-	
-	active_button.button_pressed = true
+	switch_bot_buttons()
+	update_mode_buttons()
 
 #region mod buttons
 func _on_classic_check_button_pressed() -> void:
 	if classic_button.button_pressed:
 		active_button = classic_button
 		FrameworkSettings.active_mode = FrameworkSettings.ModeType.CLASSIC
+		game.world.send_mode_parameters.rpc_id(1, active_button)
 	
 func _on_hellhorse_check_button_pressed() -> void:
 	if hellhorse_button.button_pressed:
 		active_button = hellhorse_button
 		FrameworkSettings.active_mode = FrameworkSettings.ModeType.HELLHORSE
+		game.world.send_mode_parameters.rpc_id(1, active_button)
 	
 func _on_void_check_button_pressed() -> void:
 	if void_button.button_pressed:
 		active_button = void_button
 		FrameworkSettings.active_mode = FrameworkSettings.ModeType.VOID
+		game.world.send_mode_parameters.rpc_id(1, active_button)
 	
 func _on_gambit_check_button_pressed() -> void:
 	if gambit_button.button_pressed:
 		active_button = gambit_button
 		FrameworkSettings.active_mode = FrameworkSettings.ModeType.GAMBIT
+		game.world.send_mode_parameters.rpc_id(1, active_button)
 	
 func _on_fox_check_button_pressed() -> void:
 	if fox_button.button_pressed:
 		active_button = fox_button
 		FrameworkSettings.active_mode = FrameworkSettings.ModeType.FOX
+		game.world.send_mode_parameters.rpc_id(1, active_button)
 	
 func _on_spy_check_button_pressed() -> void:
 	if spy_button.button_pressed:
 		active_button = spy_button
 		FrameworkSettings.active_mode = FrameworkSettings.ModeType.SPY
+		game.world.send_mode_parameters.rpc_id(1, active_button)
 #endregion
 
 #region options buttons
@@ -101,14 +101,38 @@ func _on_auto_black_check_button_pressed() -> void:
 		game.referee.apply_bot_move()
 	
 func _on_start_game_button_pressed() -> void:
-	game.world.send_try_start_game()
+	game.world.try_start_game.rpc_id(1)
 	#game.start()
 	
 func _on_surrender_game_button_pressed() -> void:
 	surrender_game_button.visible = false
 	game.surrender()
+	game.world.declare_defeat.rpc_id(1)
 #endregion
 
 func update_bots() -> void:
 	game.referee.resource.color_to_player[FrameworkSettings.PieceColor.WHITE].is_bot = auto_white_button.button_pressed
 	game.referee.resource.color_to_player[FrameworkSettings.PieceColor.BLACK].is_bot = auto_black_button.button_pressed
+	
+func switch_bot_buttons() -> void:
+	%OptionButtons.visible = !%OptionButtons.visible
+	auto_white_button.visible = !auto_white_button.visible
+	auto_black_button.visible = !auto_black_button.visible
+	
+func update_mode_buttons() -> void:
+	match FrameworkSettings.active_mode:
+		FrameworkSettings.ModeType.CLASSIC:
+			active_button = classic_button
+		FrameworkSettings.ModeType.VOID:
+			active_button = void_button
+		FrameworkSettings.ModeType.GAMBIT:
+			active_button = gambit_button
+		FrameworkSettings.ModeType.FOX:
+			active_button = fox_button
+		FrameworkSettings.ModeType.HELLHORSE:
+			active_button = hellhorse_button
+		FrameworkSettings.ModeType.SPY:
+			active_button = spy_button
+	
+	active_button.button_pressed = true
+	

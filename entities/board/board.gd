@@ -369,6 +369,9 @@ func swap_on_black_color() -> void:
 	%BlackAxisDigits.visible = true
 	game.menu.start_game_button.visible = false
 	
+	for mod_button in game.menu.mod_buttons:
+		mod_button.disabled = true
+	
 	for tile in tiles.get_children():
 		tile.rotation_degrees = 180
 		
@@ -380,6 +383,9 @@ func swap_on_white_color() -> void:
 	%WhiteAxisDigits.visible = true
 	%BlackAxisDigits.visible = false
 	game.menu.start_game_button.visible = true
+	
+	for mod_button in game.menu.mod_buttons:
+		mod_button.disabled = false
 	
 	for tile in tiles.get_children():
 		tile.rotation_degrees = 0

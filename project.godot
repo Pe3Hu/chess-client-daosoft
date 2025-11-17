@@ -28,6 +28,10 @@ window/size/viewport_width=1200
 window/size/viewport_height=800
 window/stretch/mode="canvas_items"
 
+[editor]
+
+run/main_run_args="initial_position_type"
+
 [gui]
 
 theme/custom_font="uid://c3q2jgt5ywha7"

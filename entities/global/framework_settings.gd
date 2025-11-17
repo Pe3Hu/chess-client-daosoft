@@ -14,7 +14,7 @@ extends Node
 #"RNBQKBHR/PPPPPPPP/8/8/7H/6p1/pppppppp/rnbqkbhr" hellhorse king capture and phantom
 #"RNBQKBNR/PPPPPPPP/8/8/Q6q/6p1/pppppppp/rnbqkbnr" spy test
 #"RNBQK3/PPPPP2p/B7/BQ2p3/1p6/8/4ppp1/r3k2r" spy castling test
-const DEFAULT_START_FEN: String = "RNBQKBNR/PPPPPPPP/8/8/8/8/pppppppp/rnbqkbnr"
+const DEFAULT_START_FEN: String = "RNBQKBNR/PPPPPPPP/8/2B2Q2/8/8/pppppppp/rnbqkbnr"
 const GAMBIT_START_FEN: String = "RNBQKQBNR/PPPPPPPPP/9/9/9/9/9/ppppppppp/rnbqkqbnr"
 const HELLHORSE_START_FEN: String = "RNBQKBHR/PPPPPPPP/8/8/8/8/pppppppp/rnbqkbhr"
 #endregion
@@ -126,6 +126,8 @@ enum MoveType {
 	SPY = 8,
 	FOX = 9,
 }
+
+const CAPTURE_TYPES = [MoveType.PASSANT, MoveType.CAPTURE]
 
 const move_to_symbol = {
 	MoveType.BASIC: "-",

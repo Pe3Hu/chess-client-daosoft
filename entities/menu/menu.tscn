@@ -92,6 +92,7 @@ layout_mode = 2
 alignment = 1
 
 [node name="OptionsLabel" type="Label" parent="VBoxContainer/OptionButtons"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "select game options:"
 horizontal_alignment = 1

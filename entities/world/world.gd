@@ -17,24 +17,25 @@ func send_move_resource(move_resource_: MoveResource) -> void:
 	var start_tile_id = move_resource_.start_tile.id
 	var end_tile_id = move_resource_.end_tile.id
 	var move_type = move_resource_.type
-	send_move_parameters.rpc_id(1, start_tile_id, end_tile_id, move_type)
+	MultiplayerManager.move_index += 1
+	send_move_parameters.rpc_id(1, start_tile_id, end_tile_id, MultiplayerManager.move_index, move_type)
 	game.receive_move(move_resource_, false)
 	MultiplayerManager.switch_active_color()
 
-func send_try_start_game() -> void:
-	try_start_game.rpc_id(1)
 
 @rpc("any_peer")
-func send_move_parameters(_start_tile_id_: int, _end_tile_id_: int, _move_type_: FrameworkSettings.MoveType):
+func send_move_parameters(_start_tile_id_: int, _end_tile_id_: int, _move_index_: int, _move_type_: FrameworkSettings.MoveType):
 	pass
 
 @rpc("any_peer")
-func return_enemy_move(active_color_: FrameworkSettings.PieceColor, start_tile_id_: int, end_tile_id_: int, move_type_: FrameworkSettings.MoveType) -> void:
-	print([MultiplayerManager.user_color, MultiplayerManager.active_color, active_color_])
+func return_enemy_move(start_tile_id_: int, end_tile_id_: int, move_index_: int, move_type_: FrameworkSettings.MoveType) -> void:
+	if MultiplayerManager.move_index + 1 != move_index_: return
+	MultiplayerManager.move_index = move_index_
+	#print([MultiplayerManager.user_color, MultiplayerManager.active_color, active_color_])
 	#MultiplayerManager.switch_active_color()
-	if active_color_ == MultiplayerManager.active_color: 
+	#if active_color_ == MultiplayerManager.active_color: 
 		#MultiplayerManager.switch_active_color()
-		return
+		#return
 	MultiplayerManager.switch_active_color()
 	#var c = MultiplayerManager.user_color
 	var start_tile = game.board.tiles.get_child(start_tile_id_)
@@ -46,13 +47,26 @@ func return_enemy_move(active_color_: FrameworkSettings.PieceColor, start_tile_i
 	var move_resource = MoveResource.new(moved_piece.resource, start_tile.resource, end_tile.resource)
 	if move_resource.type != move_type_:
 		move_resource.type = move_type_
+		
+		if FrameworkSettings.CAPTURE_TYPES.has(move_type_):
+			move_resource.captured_piece = end_tile.resource.piece
+	
 	game.receive_move(move_resource, false)
 	
 	#game.referee.pass_turn_to_opponent()
 
 @rpc("any_peer")
-func give_color(color_: FrameworkSettings.PieceColor):
+func recive_color(color_: FrameworkSettings.PieceColor):
 	game.set_piece_color(color_)
+
+@rpc("any_peer")
+func send_mode_parameters(_mode_type_: FrameworkSettings.ModeType):
+	pass
+
+@rpc("any_peer")
+func recive_mode_parameters(mode_type_: FrameworkSettings.ModeType):
+	FrameworkSettings.active_mode = mode_type_
+	game.menu.update_mode_buttons()
 
 @rpc("any_peer")
 func try_start_game():
@@ -61,6 +75,18 @@ func try_start_game():
 @rpc("any_peer")
 func start_game():
 	game.start()
+
+@rpc("any_peer")
+func declare_defeat():
+	print(1)
+	pass
+
+@rpc("any_peer")
+func declare_victory():
+	print(4)
+	game.resource.referee.winner_player = MultiplayerManager.player
+	game.handbook.surrender_reset()
+	game.end()
 
 
 func _input(event) -> void:

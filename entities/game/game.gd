@@ -29,14 +29,8 @@ func _ready() -> void:
 	#start()
 	
 func start() -> void:
-	menu.mods.visible = false
-	menu.start_game_button.visible = false
-	menu.surrender_game_button.visible = true
-	handbook.visible = true
-	handbook.altar.visible = FrameworkSettings.active_mode == FrameworkSettings.ModeType.GAMBIT
-	board.visible = true
-	board.checkmate_panel.visible = false
-	notation.visible = true
+	MultiplayerManager.reset()
+	update_visible_flags_on_start()
 	
 	FrameworkSettings.BOARD_SIZE = FrameworkSettings.mod_to_board_size[FrameworkSettings.active_mode]
 	
@@ -69,10 +63,20 @@ func start() -> void:
 	if referee.resource.active_player.is_bot:
 		referee.apply_bot_move()
 	
+func update_visible_flags_on_start() -> void:
+	menu.mods.visible = false
+	menu.start_game_button.visible = false
+	menu.surrender_game_button.visible = true
+	handbook.visible = true
+	handbook.altar.visible = FrameworkSettings.active_mode == FrameworkSettings.ModeType.GAMBIT
+	board.visible = true
+	board.checkmate_panel.visible = false
+	notation.visible = true
+	
 func end() -> void:
 	handbook.visible = false
 	menu.mods.visible = true
-	menu.start_game_button.visible = true
+	menu.start_game_button.visible = MultiplayerManager.user_color == FrameworkSettings.PieceColor.WHITE
 	menu.surrender_game_button.visible = false
 	referee.visible = false
 	var notification_text = ""
@@ -98,7 +102,7 @@ func reset() -> void:
 	resource.recalc_piece_environment()
 	
 func surrender() -> void:
-	resource.referee.winner_player = resource.referee.active_player.opponent
+	resource.referee.winner_player = MultiplayerManager.player.opponent #resource.referee.active_player.opponent
 	handbook.surrender_reset()
 	end()
 #endregion
@@ -186,5 +190,16 @@ func apply_fox_swap(move_resource_: MoveResource) -> void:
 	
 func set_piece_color(color_: FrameworkSettings.PieceColor) -> void:
 	MultiplayerManager.user_color = color_
+	
 	if color_ == FrameworkSettings.PieceColor.BLACK:
 		board.swap_on_black_color()
+	else:
+		board.swap_on_white_color()
+		print(menu.start_game_button.visible)
+		var a = menu.start_game_button.visible
+		pass
+	
+	for player in referee.resource.players:
+		if player.color == color_:
+			MultiplayerManager.player = player
+			return

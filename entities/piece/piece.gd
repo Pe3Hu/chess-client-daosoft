@@ -81,7 +81,8 @@ func capture(source_piece_: Piece = null, _is_admin: bool = false) -> void:
 	
 func remove_self() -> void:
 	#board.resource_to_piece.erase(resource)
-	board.pieces.remove_child(self)
+	if board.pieces.get_children().has(self):
+		board.pieces.remove_child(self)
 	queue_free()
 	
 func promotion() -> void:
