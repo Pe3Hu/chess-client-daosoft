@@ -24,7 +24,7 @@ BoardHelper="*res://entities/global/board_helper.gd"
 
 [display]
 
-window/size/viewport_width=1200
+window/size/viewport_width=1600
 window/size/viewport_height=800
 window/stretch/mode="canvas_items"
 

@@ -32,6 +32,7 @@ func _init(game_: GameResource) -> void:
 	load_start_position()
 	
 func init_tiles() -> void:
+	#FrameworkSettings.BOARD_SIZE = FrameworkSettings.mod_to_board_size[FrameworkSettings.active_mode]
 	#coord_to_tile = {}
 	for file in FrameworkSettings.BOARD_SIZE.y:
 		for rank in FrameworkSettings.BOARD_SIZE.x:

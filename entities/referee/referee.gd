@@ -43,10 +43,15 @@ func start_game() -> void:
 	visible = true
 	%WhiteClock._on_switch()
 	
-func pass_turn_to_opponent() -> void:
+func pass_turn_to_opponent(is_local_: bool = true) -> void:
 	#game.board.reset_state_tiles()
 	#apply_mods()
-	resource.pass_turn_to_opponent()
+	#resource.pass_turn_to_opponent()
+	
+	if is_local_:
+		game.world.server_recive_initiative_switch.rpc_id(1)
+	
+	resource.switch_active_player()
 	
 	if !check_gameover():
 		game.board.reset_focus_tile()
@@ -67,6 +72,7 @@ func check_gameover() -> bool:
 	
 	if is_gameover:
 		game.end()
+		game.world.declare_defeat.rpc_id(1)
 		return true
 		
 	return false
@@ -95,7 +101,8 @@ func reset() -> void:
 	
 #region mod
 func apply_mods() -> void:
-	apply_void_mod()
+	if MultiplayerManager.active_color != MultiplayerManager.user_color: return
+	#apply_void_mod()
 	apply_hellhorse_mod()
 	
 func apply_void_mod() -> void:
@@ -119,12 +126,14 @@ func apply_hellhorse_mod() -> void:
 	
 	match initiative:
 		FrameworkSettings.InitiativeType.BASIC:
-			last_move.piece.player.initiatives.push_back(FrameworkSettings.InitiativeType.HELLHORSE)
-		
-			last_move.piece.player.generate_legal_moves()
-			game.board.clear_phantom_hellhorse_captures()
+			insert_hellhorse_initiative()
 		FrameworkSettings.InitiativeType.HELLHORSE:
 			pass
+	
+func insert_hellhorse_initiative() -> void:
+	resource.active_player.initiatives.push_back(FrameworkSettings.InitiativeType.HELLHORSE)
+	resource.active_player.generate_legal_moves()
+	game.board.clear_phantom_hellhorse_captures()
 	
 func fox_mod_preparation() -> void:
 	resource.fox_swap_players.append_array(resource.players)
@@ -203,3 +212,4 @@ func detect_spy_checkmate() -> void:
 		resource.winner_player = resource.active_player.opponent
 		game.end()
 #endregion
+	

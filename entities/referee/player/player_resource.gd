@@ -259,6 +259,7 @@ func fill_fox_swap_pieces() -> void:
 func generate_hellhorse_bonus_moves() -> void:
 	#if get_initiative() != FrameworkSettings.InitiativeType.HELLHORSE: return
 	#if !hellhorse_bonus_move: return
+	#if !board.game.notation.moves.is_empty():
 	var last_move = board.game.notation.moves.back()
 	var piece = last_move.piece
 	if piece.template.type != FrameworkSettings.PieceType.HELLHORSE: return

@@ -218,6 +218,10 @@ func reset() -> void:
 	
 	init_pieces()
 	initial_tile_state_update()
+	
+	if MultiplayerManager.player.color == FrameworkSettings.PieceColor.BLACK:
+		swap_on_black_color()
+	
 	game.resource.recalc_piece_environment()
 	
 func resize() -> void:
@@ -265,7 +269,8 @@ func fox_mod_tile_state_update() -> void:
 		game.fox_swap_pieces_finished.emit()
 		return
 	
-	var player = game.referee.resource.fox_swap_players.front()
+	var player = MultiplayerManager.player
+	#var player = game.referee.resource.fox_swap_players.front()
 	
 	if player.is_bot:
 		fox_random_swap()
@@ -282,7 +287,7 @@ func set_fox_swap_tiles_as_none_state() -> void:
 		tile.resource.current_state = FrameworkSettings.TileState.NONE
 		tile.update_state()
 	
-func fox_swap(piece_for_swap_: Piece) -> void:
+func fox_swap(piece_for_swap_: Piece, is_local_: bool = true) -> void:
 	#var focus_piece = get_piece(resource.focus_tile.piece)
 	var focus_tile = get_tile(resource.focus_tile).resource
 	var swap_tile = get_tile(piece_for_swap_.resource.tile).resource
@@ -301,6 +306,9 @@ func fox_swap(piece_for_swap_: Piece) -> void:
 	
 	reset_tile_state_after_swap()
 	fox_mod_tile_state_update()
+	
+	if is_local_:
+		game.world.server_recive_fox_swap_parameters.rpc_id(1, focus_tile.id, swap_tile.id)
 	#piece_for_swap_.is_holden = false
 	
 func fox_random_swap() -> void:
@@ -311,6 +319,12 @@ func fox_random_swap() -> void:
 	resource.focus_tile = random_focus_resource.tile
 	var swap_piece = get_piece(random_swap_resource)
 	fox_swap(swap_piece)
+	
+func fox_swap_from_server(focus_tile_id_: int, swap_tile_id_: int) -> void:
+	resource.focus_tile = resource.tiles[focus_tile_id_]
+	var piece_resource = resource.tiles[swap_tile_id_].piece
+	var piece_for_swap = get_piece(piece_resource)
+	fox_swap(piece_for_swap, false)
 	
 func reset_tile_state_after_swap() -> void:
 	resource.focus_tile = null
@@ -331,6 +345,16 @@ func get_free_tile() -> Tile:
 	return option_tile
 #endregion
 
+#region void
+func apply_tile_fatigue(tile_id_: int) -> void:
+	var tile = tiles.get_child(tile_id_)
+	if tile.resource.piece == null:
+		return
+	
+	var piece = get_piece(tile.resource.piece)
+	piece.capture()
+#endregion
+
 #region hellhorse
 func show_hellhorse_pass_ask() -> void:
 	hellhorse_pass_ask.visible = true
@@ -338,6 +362,7 @@ func show_hellhorse_pass_ask() -> void:
 	
 func _on_hell_horse_yes_button_pressed() -> void:
 	game.referee.pass_turn_to_opponent()
+	game.world.server_recive_initiative_switch()
 	hellhorse_pass_ask.visible = false
 	game.on_pause = false
 	
@@ -368,6 +393,7 @@ func swap_on_black_color() -> void:
 	%WhiteAxisDigits.visible = false
 	%BlackAxisDigits.visible = true
 	game.menu.start_game_button.visible = false
+	#game.menu.option_buttons.visible = false
 	
 	for mod_button in game.menu.mod_buttons:
 		mod_button.disabled = true
@@ -383,6 +409,7 @@ func swap_on_white_color() -> void:
 	%WhiteAxisDigits.visible = true
 	%BlackAxisDigits.visible = false
 	game.menu.start_game_button.visible = true
+	#game.menu.option_buttons.visible = true
 	
 	for mod_button in game.menu.mod_buttons:
 		mod_button.disabled = false

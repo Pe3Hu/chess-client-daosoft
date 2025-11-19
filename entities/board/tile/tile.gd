@@ -49,8 +49,8 @@ func update_modulate(state_: FrameworkSettings.TileState) -> void:
 
 func _on_area_2d_input_event(_viewport: Node, _event: InputEvent, _shape_idx: int) -> void:
 	if _event.is_action_pressed("click"):
-		if MultiplayerManager.active_color != MultiplayerManager.user_color: return
 		fox_piece_swap()
+		if MultiplayerManager.active_color != MultiplayerManager.user_color: return
 		if board.game.on_pause: return
 		if board.game.referee.resource.winner_player != null: return
 		var is_free = resource.piece == null

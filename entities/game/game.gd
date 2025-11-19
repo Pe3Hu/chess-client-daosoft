@@ -74,6 +74,7 @@ func update_visible_flags_on_start() -> void:
 	notation.visible = true
 	
 func end() -> void:
+	MultiplayerManager.reset()
 	handbook.visible = false
 	menu.mods.visible = true
 	menu.start_game_button.visible = MultiplayerManager.user_color == FrameworkSettings.PieceColor.WHITE
@@ -152,27 +153,35 @@ func receive_move(move_resource_: MoveResource, is_local_: bool = true) -> void:
 			var move_end_tile = board.get_tile(move_resource_.end_tile)
 			moved_piece.global_position = move_end_tile.global_position
 			move_end_tile.resource.place_piece(moved_piece.resource)
-			resource.notation.record_move(move_resource_)
+			notation.add_move(move_resource_)
+			pass
 		else:
 			var move_start_tile = board.get_tile(move_resource_.start_tile)
 			moved_piece.global_position = move_start_tile.global_position
 	
-	consequence_of_piece_placement(moved_piece)
+	if move_resource_.type == FrameworkSettings.MoveType.HELLHORSE and !is_local_:
+		referee.insert_hellhorse_initiative()
+		
+	if !is_local_:
+		consequence_of_piece_placement(moved_piece, is_local_)
 	
 	if !move_resource_.is_postponed and is_local_:
 		world.send_move_resource(move_resource_)
 	
-func consequence_of_piece_placement(piece_: Piece) -> void:
+func consequence_of_piece_placement(piece_: Piece, is_local_: bool) -> void:
 	if piece_.resource.player != referee.resource.active_player: return
+	#if is_local_: return
+	
 	piece_.resource.king_unpin()
 	referee.apply_mods()
 	
 	var is_passing_turn = referee.resource.active_player.is_last_initiative()
 	var initiative = referee.resource.active_player.get_initiative()
 	piece_.resource.player.update_initiative()
+	#print([referee.resource.active_player.initiative_index, referee.resource.active_player.initiatives])
 	
 	if is_passing_turn:
-		referee.pass_turn_to_opponent()
+		referee.pass_turn_to_opponent(is_local_)
 	else:
 		board.reset_focus_tile()
 	
@@ -189,17 +198,15 @@ func apply_fox_swap(move_resource_: MoveResource) -> void:
 	move_end_tile.resource.place_piece(moved_piece.resource)
 	
 func set_piece_color(color_: FrameworkSettings.PieceColor) -> void:
+	for player in referee.resource.players:
+		if player.color == color_:
+			MultiplayerManager.player = player
+			break
+	
+	if MultiplayerManager.user_color == color_: return
 	MultiplayerManager.user_color = color_
 	
 	if color_ == FrameworkSettings.PieceColor.BLACK:
 		board.swap_on_black_color()
 	else:
 		board.swap_on_white_color()
-		print(menu.start_game_button.visible)
-		var a = menu.start_game_button.visible
-		pass
-	
-	for player in referee.resource.players:
-		if player.color == color_:
-			MultiplayerManager.player = player
-			return

@@ -15,6 +15,7 @@ func add_move(move_resource_: MoveResource) -> void:
 	var move = move_scene.instantiate()
 	move.resource = move_resource_
 	moves.add_child(move)
+	resource.record_move(move_resource_)
 	#game.referee.pass_initiative()
 	
 func reset() -> void:

@@ -34,24 +34,10 @@ func add_player(piece_color_: FrameworkSettings.PieceColor) -> void:
 	players.append(player)
 	color_to_player[piece_color_] = player
 	
-func pass_turn_to_opponent() -> void:
-	if !active_player.initiatives.size() > active_player.initiative_index: return
-	#if active_player.hellhorse_bonus_move: return
-	#if active_player.spy_bonus_move: return
-	#if is_spy_action: return
-	#for player in players:
-		#player.unfresh_all_pieces()
-	
-	#active_player.find_threat_moves()
-	#var player_index = players.find(active_player)
-	#player_index = (player_index + 1) % players.size()
-	
-	#if !active_player.is_last_initiative():
-	active_player.reset_initiatives()
-	
-	active_player = active_player.opponent
-	game.recalc_piece_environment()
-	#active_player.generate_legal_moves()
+#func pass_turn_to_opponent() -> void:
+	#if !active_player.initiatives.size() > active_player.initiative_index: return
+	#print([MultiplayerManager.move_index, MultiplayerManager.user_color, active_player.initiative_index, active_player.initiatives.size()])
+	#switch_active_player()
 	
 func reset() -> void:
 	for player in players:
@@ -60,3 +46,8 @@ func reset() -> void:
 	active_player = players.front()
 	winner_player = null
 	
+func switch_active_player() -> void:
+	active_player.reset_initiatives()
+	MultiplayerManager.switch_active_color()
+	active_player = active_player.opponent
+	game.recalc_piece_environment()

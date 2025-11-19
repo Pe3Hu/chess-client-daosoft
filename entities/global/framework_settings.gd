@@ -4,17 +4,18 @@ extends Node
 
 #region fen
 #"RNBQKBNR/PPPPPPPP/8/8/8/8/pppppppp/rnbqkbnr" classic start
-#"8/8/RNBQKBNR/PPPPPPPP/pppppppp/rnbqkbnr/8/8" void start
 #"RNBQKBHR/PPPPPPPP/8/8/8/8/pppppppp/rnbqkbhr" hellhorse start
+#"RNBQKQBNR/PPPPPPPPP/9/9/9/9/9/ppppppppp/rnbqkqbnr"gambit start
+#"8/8/RNBQKBNR/PPPPPPPP/pppppppp/rnbqkbnr/8/8" void test
 #"r1NK3r/2NP4/3Q4/b/8/8/pppppppp/rnbkqbQr"
 #"q1NKQ2r/2PPP3/8/b7/8/8/4p3/4k3" pin
+#RNBQKBNR/PPPPPPPP/8/2B2Q2/8/8/pppppppp/rnbqkbnr classic chemante
 #"8/8/RNBQKBNR/PPPP2PP/pppp2bp/rnbkq11r/8/8" check
-#"RNBQKQBNR/PPPPPPPPP/9/9/9/9/9/ppppppppp/rnbqkqbnr" gambit
 #"9/9/RNBQKQBNR/PPPB1BPPP/9/ppppppppp/rnbqkqbnr/9/9" gambit test
 #"RNBQKBHR/PPPPPPPP/8/8/7H/6p1/pppppppp/rnbqkbhr" hellhorse king capture and phantom
 #"RNBQKBNR/PPPPPPPP/8/8/Q6q/6p1/pppppppp/rnbqkbnr" spy test
 #"RNBQK3/PPPPP2p/B7/BQ2p3/1p6/8/4ppp1/r3k2r" spy castling test
-const DEFAULT_START_FEN: String = "RNBQKBNR/PPPPPPPP/8/2B2Q2/8/8/pppppppp/rnbqkbnr"
+const DEFAULT_START_FEN: String = "RNBQKBNR/PPPPPPPP/8/8/8/8/pppppppp/rnbqkbnr"
 const GAMBIT_START_FEN: String = "RNBQKQBNR/PPPPPPPPP/9/9/9/9/9/ppppppppp/rnbqkqbnr"
 const HELLHORSE_START_FEN: String = "RNBQKBHR/PPPPPPPP/8/8/8/8/pppppppp/rnbqkbhr"
 #endregion
@@ -71,6 +72,11 @@ enum PieceColor {
 	BLACK = 32      # 100000
 }
 
+const color_to_str = {
+	PieceColor.WHITE: "white",
+	PieceColor.BLACK: "black"
+}
+
 const SLIDE_PIECES = [
 	PieceType.BISHOP,
 	PieceType.ROOK,
@@ -125,6 +131,7 @@ enum MoveType {
 	CASTLING = 7,
 	SPY = 8,
 	FOX = 9,
+	HELLHORSE = 10,
 }
 
 const CAPTURE_TYPES = [MoveType.PASSANT, MoveType.CAPTURE]
@@ -138,6 +145,7 @@ const move_to_symbol = {
 	MoveType.DRAW: "=",
 	MoveType.PROMOTION: "=",
 	MoveType.CASTLING: "O-O",
+	MoveType.HELLHORSE: "-HH-",
 }
 
 const symbol_to_type = {
@@ -207,8 +215,8 @@ const mod_to_initiatives: Dictionary = {
 #endregion
 
 #region void
-const VOID_CHANCE_TO_STAND: float = 0.05
-const VOID_CHANCE_TO_ESCAPE: float = 0.05
+const VOID_CHANCE_TO_STAND: float = 0.25
+const VOID_CHANCE_TO_ESCAPE: float = 0.25
 #endregion
 
 #region gambit
