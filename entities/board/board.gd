@@ -242,7 +242,8 @@ func resize() -> void:
 	
 func update_axis() -> void:
 	var is_9_visible = FrameworkSettings.BOARD_SIZE != FrameworkSettings.DEFAULT_BOARD_SIZE
-	%DigitLabel9.visible = is_9_visible
+	%WhiteDigitLabel9.visible = is_9_visible
+	%BlackDigitLabel9.visible = is_9_visible
 	%LetterLabel9.visible = is_9_visible
 	
 func remove_tiles() -> void:
@@ -352,7 +353,8 @@ func apply_tile_fatigue(tile_id_: int) -> void:
 		return
 	
 	var piece = get_piece(tile.resource.piece)
-	piece.capture()
+	if piece != null:
+		piece.capture()
 #endregion
 
 #region hellhorse

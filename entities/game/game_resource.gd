@@ -40,5 +40,12 @@ func recalc_piece_environment() -> void:
 	referee.active_player.opponent.find_threat_moves()
 	referee.active_player.generate_legal_moves()
 	
+func recalc_piece_environment_opponent() -> void:
+	#for player in referee.players:
+	#	player.unfresh_all_pieces()
+	
+	referee.active_player.find_threat_moves()
+	referee.active_player.opponent.generate_legal_moves()
+	
 func receive_move() -> void:
 	pass

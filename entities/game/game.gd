@@ -56,12 +56,21 @@ func start() -> void:
 			handbook.fox_mod_display(false)
 			await get_tree().create_timer(0.05).timeout
 	
+			await get_tree().create_timer(0.05).timeout
+		FrameworkSettings.ModeType.SPY:
+			for player in referee.resource.players:
+				player.reset_initiatives()
+				if player.color == FrameworkSettings.PieceColor.WHITE:
+					player.initiatives.pop_back()
+	
 	on_pause = false
 	referee.start_game()
 	menu.update_bots()
 	
 	if referee.resource.active_player.is_bot:
 		referee.apply_bot_move()
+	#for player in referee.resource.players:
+		#player.reset_initiatives()
 	
 func update_visible_flags_on_start() -> void:
 	menu.mods.visible = false
@@ -112,6 +121,10 @@ func recalc_piece_environment() -> void:
 	resource.recalc_piece_environment()
 	board.reset_focus_tile()
 	
+func recalc_piece_environment_opponent() -> void:
+	resource.recalc_piece_environment_opponent()
+	board.reset_focus_tile()
+	
 func receive_move(move_resource_: MoveResource, is_local_: bool = true) -> void:
 	if move_resource_ == null: return
 	if move_resource_.type == FrameworkSettings.MoveType.FOX:
@@ -125,14 +138,20 @@ func receive_move(move_resource_: MoveResource, is_local_: bool = true) -> void:
 		referee.resource.active_player.spy_move = move_resource_
 		move_resource_.is_postponed = true
 	
+	print([MultiplayerManager.user_color, MultiplayerManager.move_index, FrameworkSettings.active_mode, moved_piece.resource.player.initiatives])
+	
 	if moved_piece.resource.is_inactive:
 		moved_piece.resource.is_inactive = move_resource_.is_postponed
-		
+	
 	if move_resource_.captured_piece != null:
 		var captured_piece = board.get_piece(move_resource_.captured_piece)
 		
 		if !move_resource_.is_postponed:
-			captured_piece.capture(moved_piece)
+			if is_local_:
+				var is_local_caputure = FrameworkSettings.active_mode == FrameworkSettings.ModeType.VOID
+				captured_piece.capture(moved_piece, is_local_caputure)
+			else:
+				captured_piece.capture(moved_piece)
 	
 	match move_resource_.type:
 		FrameworkSettings.MoveType.PROMOTION:
@@ -143,7 +162,7 @@ func receive_move(move_resource_: MoveResource, is_local_: bool = true) -> void:
 			moved_piece.complement_castling_move(move_resource_)
 	
 	#check on Gambit Altar
-	moved_piece.sacrifice(move_resource_)
+	moved_piece.sacrifice(move_resource_, is_local_)
 	
 	if move_resource_.is_postponed:
 		var move_start_tile = board.get_tile(move_resource_.start_tile)
@@ -161,12 +180,16 @@ func receive_move(move_resource_: MoveResource, is_local_: bool = true) -> void:
 	
 	if move_resource_.type == FrameworkSettings.MoveType.HELLHORSE and !is_local_:
 		referee.insert_hellhorse_initiative()
-		
+	
 	if !is_local_:
 		consequence_of_piece_placement(moved_piece, is_local_)
 	
-	if !move_resource_.is_postponed and is_local_:
-		world.send_move_resource(move_resource_)
+	if is_local_:
+		if !move_resource_.is_postponed:
+			world.send_move_resource(move_resource_)
+		else:
+			if initiative == FrameworkSettings.InitiativeType.PLAN:
+				world.server_recive_spy_move_parameters.rpc_id(1, move_resource_.start_tile.id, move_resource_.end_tile.id)
 	
 func consequence_of_piece_placement(piece_: Piece, is_local_: bool) -> void:
 	if piece_.resource.player != referee.resource.active_player: return
@@ -174,6 +197,8 @@ func consequence_of_piece_placement(piece_: Piece, is_local_: bool) -> void:
 	
 	piece_.resource.king_unpin()
 	referee.apply_mods()
+	
+	piece_.resource.player.find_threat_moves()
 	
 	var is_passing_turn = referee.resource.active_player.is_last_initiative()
 	var initiative = referee.resource.active_player.get_initiative()

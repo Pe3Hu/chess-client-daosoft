@@ -279,6 +279,7 @@ func check_castling_under_threat(target_tile_: TileResource) -> bool:
 func success_on_stand_trial() -> bool:
 	if template.type == FrameworkSettings.PieceType.KING: return true
 	var chance = randf()
+	#print([chance, FrameworkSettings.VOID_CHANCE_TO_STAND, chance < FrameworkSettings.VOID_CHANCE_TO_STAND])
 	return chance < FrameworkSettings.VOID_CHANCE_TO_STAND
 	
 func failure_on_escape_trial() -> bool:

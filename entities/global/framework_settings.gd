@@ -215,12 +215,12 @@ const mod_to_initiatives: Dictionary = {
 #endregion
 
 #region void
-const VOID_CHANCE_TO_STAND: float = 0.25
-const VOID_CHANCE_TO_ESCAPE: float = 0.25
+var VOID_CHANCE_TO_STAND: float = 0.85
+var VOID_CHANCE_TO_ESCAPE: float = 0.5
 #endregion
 
 #region gambit
 const GAMBIT_BOARD_SIZE: Vector2i = Vector2i(9, 9)
 const ALTAR_COORD: Vector2i = Vector2i(4, 4)
-const SACRIFICE_COUNT_FOR_VICTORY: int = 5
+var SACRIFICE_COUNT_FOR_VICTORY: int = 5
 #endregion

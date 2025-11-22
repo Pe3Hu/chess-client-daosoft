@@ -271,20 +271,13 @@ func generate_hellhorse_bonus_moves() -> void:
 			if move.captured_piece.template.type == FrameworkSettings.PieceType.KING:
 				legal_moves.erase(move)
 				return
-	
 #endregion
-	
+
 #region initiative
 func reset_initiatives() -> void:
 	initiatives.clear()
 	initiatives.append_array(FrameworkSettings.mod_to_initiatives[FrameworkSettings.active_mode])
 	initiative_index = 0
-	
-	if referee.game.notation.moves.is_empty():
-		match FrameworkSettings.active_mode:
-			FrameworkSettings.ModeType.SPY:
-				if color == FrameworkSettings.PieceColor.WHITE:
-					initiatives.pop_back()
 	
 func get_initiative() -> FrameworkSettings.InitiativeType:
 	return initiatives[initiative_index]
@@ -296,10 +289,10 @@ func is_not_last_initiative() -> bool:
 	return initiatives.size() > initiative_index + 1
 	
 func update_initiative() -> void:
-#endregion
 	if self != board.game.referee.active_player: return
 	initiative_index += 1
 	board.game.recalc_piece_environment()
 	
 	if initiatives.size() == initiative_index:
 		reset_initiatives()
+#endregion

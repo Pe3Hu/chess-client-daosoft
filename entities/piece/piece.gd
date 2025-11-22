@@ -67,17 +67,18 @@ func return_piece_to_original_tile() -> void:
 		FrameworkSettings.InitiativeType.HELLHORSE:
 			board.show_hellhorse_pass_ask()
 	
-func capture(source_piece_: Piece = null, _is_admin: bool = false) -> void:
+func capture(_source_piece_: Piece = null, is_local_: bool = false) -> void:
 	#if !is_admin_:
 		#if resource.player.spy_move == null and FrameworkSettings.active_mode == FrameworkSettings.ModeType.SPY: return 
-	if source_piece_ != null:
-		if FrameworkSettings.active_mode == FrameworkSettings.ModeType.VOID:
-			if resource.success_on_stand_trial():
-				source_piece_.capture()
-				return
+	#if source_piece_ != null:
+		#if FrameworkSettings.active_mode == FrameworkSettings.ModeType.VOID:
+			#if resource.success_on_stand_trial():
+				#source_piece_.capture()
+				#return
 	
-	board.resource.capture_piece(resource)
-	remove_self()
+	if !is_local_:
+		board.resource.capture_piece(resource)
+		remove_self()
 	
 func remove_self() -> void:
 	#board.resource_to_piece.erase(resource)
@@ -104,7 +105,8 @@ func complement_castling_move(move_resource_: MoveResource) -> void:
 	rook_piece.global_position = next_rook_tile.global_position
 	next_rook_tile.resource.place_piece(rook_piece.resource)
 	
-func sacrifice(move_resource_: MoveResource) -> void:
+func sacrifice(move_resource_: MoveResource, is_local_: bool = true) -> void:
+	if is_local_: return
 	match FrameworkSettings.active_mode:
 		FrameworkSettings.ModeType.GAMBIT:
 			if move_resource_.end_tile != board.resource.altar_tile: return
@@ -114,6 +116,7 @@ func sacrifice(move_resource_: MoveResource) -> void:
 			
 			var clock = board.game.referee.get_player_clock(resource.player)
 			clock.update_sacrifice_label()
+			board.game.recalc_piece_environment()
 			board.game.referee.check_gameover()
 			remove_self()
 			#var altar_tile = board.get_tile(board.resource.altar_tile)

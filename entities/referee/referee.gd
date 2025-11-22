@@ -41,6 +41,7 @@ func start_game() -> void:
 	game.on_pause = false
 	game.board.checkmate_panel.visible = false
 	visible = true
+	update_clocks()
 	%WhiteClock._on_switch()
 	
 func pass_turn_to_opponent(is_local_: bool = true) -> void:
@@ -146,10 +147,10 @@ func fox_mod_preparation() -> void:
 	
 func apply_opponent_spy_move() -> void:
 	var move = resource.active_player.opponent.spy_move
-	
 	if move == null: return
 	
 	if !check_spy_move_is_legal():
+		print(["ilegal spy move" , move.start_tile.id, move.end_tile.id])
 		return
 	
 	move.is_postponed = false
@@ -159,11 +160,13 @@ func apply_opponent_spy_move() -> void:
 			move.is_postponed = !check_spy_move_on_legal_capture()
 		FrameworkSettings.MoveType.PASSANT:
 			move.is_postponed = !check_spy_move_on_legal_capture()
+	print([MultiplayerManager.active_color, "spy move from", move.piece.template.color, move.start_tile.id, move.end_tile.id ])
 	
 	update_spy_move_on_slide_capture()
 	
 	game.receive_move(move)
 	var spy_piece = game.board.get_piece(move.piece)
+	
 	
 	if move.type == FrameworkSettings.MoveType.CASTLING:
 		spy_piece.complement_castling_move(move)
@@ -182,7 +185,8 @@ func check_spy_move_is_legal() -> bool:
 		king_tile_indexs.append(king_move.end_tile.id)
 	
 	for move in resource.active_player.opponent.legal_moves:
-		if resource.active_player.opponent.spy_move.check_is_equal(move):
+		#if resource.active_player.opponent.spy_move.check_is_equal(move):
+		if resource.active_player.opponent.spy_move.start_tile.id == move.start_tile.id:
 			return true
 	
 	return false

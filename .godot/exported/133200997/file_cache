@@ -1,6 +1,6 @@
 res://assets/default_env.tres::756de160834ef7cc033c2a79cd80f338::1690116911::res://.godot/exported/133200997/export-298342078e44d9a209a1f8421d629c50-default_env.res
-res://entities/board/tile/tile.tscn::7dc7680d99bbb9caeb5b9e1482a40618::1763135737::res://.godot/exported/133200997/export-93b4b46d3bd7d4f0769548d3b3da1588-tile.scn
-res://entities/board/board.tscn::8e151fd375857b258d7d685451d3e362::1763499065::res://.godot/exported/133200997/export-638f709a7505e9f517dd6d79f7ca0c70-board.scn
+res://entities/board/tile/tile.tscn::82ae9dc1efa75bca81b1fbb120d07eb1::1763810964::res://.godot/exported/133200997/export-93b4b46d3bd7d4f0769548d3b3da1588-tile.scn
+res://entities/board/board.tscn::88f4a22ede18c2d93f0f7ff011f6c2af::1763808376::res://.godot/exported/133200997/export-638f709a7505e9f517dd6d79f7ca0c70-board.scn
 res://entities/game/game.tscn::f116a7e9eb1a4e2afcad32a52886432d::1763403344::res://.godot/exported/133200997/export-8145f932e04faee7351768634f80d86a-game.scn
 res://entities/menu/handbook/handbook.tscn::4e60f7d1e148df81c6a66de355684fd0::1761991553::res://.godot/exported/133200997/export-a408e563d0d42692ec606f6e4a22fcf8-handbook.scn
 res://entities/menu/menu.tscn::7a48d5cce6ec76424849f9bd42ff6cc0::1763494614::res://.godot/exported/133200997/export-cd82dd03613f7c82e1c567c654ff84ba-menu.scn
@@ -15,9 +15,9 @@ res://entities/piece/templates/22.tres::1933d99399f16a1972570a7dcd6d700c::176260
 res://entities/piece/templates/23.tres::2a2b5499b51548fd895483e963d038d4::1762609416::res://.godot/exported/133200997/export-299add62171a7536c5bb1d31587feb18-23.res
 res://entities/piece/piece.tscn::2c49c77335e168cf8b0e30d3383de62a::1763133744::res://.godot/exported/133200997/export-0fff430c95a037ce42f52c09f767ee1c-piece.scn
 res://entities/referee/clock/clock.tscn::c6e6b266871170345928403ae24eefd8::1762009117::res://.godot/exported/133200997/export-809b58da6f266f686351a08040939dd4-clock.scn
-res://entities/referee/referee.tscn::74a5a1a2fa93845dcbc59f406722af29::1762009901::res://.godot/exported/133200997/export-a85e9709f28d26a5f95c0855b53798cf-referee.scn
+res://entities/referee/referee.tscn::74a5a1a2fa93845dcbc59f406722af29::1763811224::res://.godot/exported/133200997/export-a85e9709f28d26a5f95c0855b53798cf-referee.scn
 res://entities/world/cursor/custom_cursor.tscn::9d505233a89f61e8c8f91d0352e71b57::1761985125::res://.godot/exported/133200997/export-783890545f93bd782cb11e7c9e068e45-custom_cursor.scn
-res://entities/world/world.tscn::ff154eb4dc5476a74896f31b66e2d82a::1763499906::res://.godot/exported/133200997/export-40d1a2d49aed9e64e7f87b70415fcfbf-world.scn
+res://entities/world/world.tscn::ff154eb4dc5476a74896f31b66e2d82a::1763807726::res://.godot/exported/133200997/export-40d1a2d49aed9e64e7f87b70415fcfbf-world.scn
 res://entities/piece/templates/33.tres::fe433c32d6a781161094508829a2a342::1762610395::res://.godot/exported/133200997/export-f9769294c7edd1eee7ee2710549518dd-33.res
 res://entities/piece/templates/34.tres::f8a76cec9320b637a033966d57619d02::1762610395::res://.godot/exported/133200997/export-8d86c9d13dc2b340d83b1390e030368b-34.res
 res://entities/piece/templates/35.tres::cbc4c1c73c99cc1ce94536cc45ec5f5f::1762610395::res://.godot/exported/133200997/export-3817d33ac8e9985465de61d0f8b69731-35.res
